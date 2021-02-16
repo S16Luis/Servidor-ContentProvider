@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
     <uses-permission android:name="android.permission.RECORD_AUDIO"></uses-permission>
+    <permission android:name="net.ivanvega.actividadesenandorid.provider.permission.READ_PROVIDER"></permission>
+    <permission android:name="net.ivanvega.actividadesenandorid.provider.permission.WRITE_PROVIDER"></permission>
 
     <application
         android:allowBackup="true"
