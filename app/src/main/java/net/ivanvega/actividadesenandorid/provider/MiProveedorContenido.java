@@ -71,10 +71,10 @@ public class MiProveedorContenido extends ContentProvider {
                 break;
 
             case 2:
-               //base de datos
-               String id =  uri.getLastPathSegment();
+                //base de datos
+                String id =  uri.getLastPathSegment();
 
-               result = daoUsuarios.getOneByIDCursor( Long.parseLong(id) );
+                result = daoUsuarios.getOneByIDCursor( Long.parseLong(id) );
 
         }
 
@@ -125,9 +125,9 @@ public class MiProveedorContenido extends ContentProvider {
             case 1:
                 break;
             case 2:
-                    result =
-                            (daoUsuarios.delete
-                                        (Long.parseLong( uri.getLastPathSegment()))) ? 1:0;
+                result =
+                        (daoUsuarios.delete2
+                                (Integer.parseInt(uri.getLastPathSegment()))) ? 1:0;
                 break;
         }
 
@@ -136,6 +136,15 @@ public class MiProveedorContenido extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+        int cont=0;
+        switch (uriMatcher.match(uri)){
+            case 1:
+                break;
+            case 2:
+                cont =
+                        daoUsuarios.update2(contentValues, Integer.parseInt(uri.getLastPathSegment()));
+                break;
+        }
+        return cont;
     }
 }
