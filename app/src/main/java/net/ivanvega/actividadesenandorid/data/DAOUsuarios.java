@@ -20,13 +20,13 @@ public class DAOUsuarios {
     public DAOUsuarios(Context ctx){
         this.context = ctx;
         db = new DB(ctx);
-         ad = db.getWritableDatabase();
+        ad = db.getWritableDatabase();
     }
 
     public Cursor getAllByName(String nombre){
 
-         return  ad.rawQuery("Select * from " + DB.TABLE_USUARIOS_NAME +
-                " where nombre like  ? " ,
+        return  ad.rawQuery("Select * from " + DB.TABLE_USUARIOS_NAME +
+                        " where nombre like  ? " ,
                 new String[]{ "\\%"+ nombre+ "\\%"}
 
         );
@@ -55,7 +55,7 @@ public class DAOUsuarios {
                 cv ,
                 "_id=?",
                 new String[]{ String.valueOf( usuario.getID())}
-                )   > 0;
+        )   > 0;
     }
 
     public List<Usuario> getAll(){
@@ -68,10 +68,10 @@ public class DAOUsuarios {
             while(cursor.moveToNext()){
                 lst.add(
                         new Usuario( cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getString(2) ,
-                        cursor.getString(3),
-                        cursor.getString(4))
+                                cursor.getString(1),
+                                cursor.getString(2) ,
+                                cursor.getString(3),
+                                cursor.getString(4))
                 );
             }
 
@@ -83,7 +83,7 @@ public class DAOUsuarios {
 
         Cursor cursor = ad.query(DB.TABLE_USUARIOS_NAME, DB.COLUMS_TABLEUSUARIOS,
                 null, null, null , null, null);
-        
+
         return cursor;
     }
 
@@ -92,19 +92,19 @@ public class DAOUsuarios {
         Cursor cursor = null;
         Usuario usuario = null;
 
-       cursor = ad.rawQuery("select * from " + DB.TABLE_USUARIOS_NAME + " where " +
-                DB.COLUMS_TABLEUSUARIOS[0]  + "=?",
-               new String[]{ String.valueOf( id)} );
+        cursor = ad.rawQuery("select * from " + DB.TABLE_USUARIOS_NAME + " where " +
+                        DB.COLUMS_TABLEUSUARIOS[0]  + "=?",
+                new String[]{ String.valueOf( id)} );
 
 
-       if(cursor!=null){
-           if( cursor.moveToFirst()){
-               usuario = new Usuario(
-                       cursor.getInt(0), cursor.getString(1), cursor.getString(2) ,
-                       cursor.getString(3), cursor.getString(4)
-               );
-           }
-       }
+        if(cursor!=null){
+            if( cursor.moveToFirst()){
+                usuario = new Usuario(
+                        cursor.getInt(0), cursor.getString(1), cursor.getString(2) ,
+                        cursor.getString(3), cursor.getString(4)
+                );
+            }
+        }
 
         return usuario;
     }
@@ -152,7 +152,7 @@ public class DAOUsuarios {
 
         return ad.insert(DB.TABLE_USUARIOS_NAME,
                 null ,
-                  cv);
+                cv);
 
     }
 
@@ -161,6 +161,20 @@ public class DAOUsuarios {
         return ad.insert(DB.TABLE_USUARIOS_NAME,
                 null ,
                 cv);
+
+    }
+
+    public int update2(ContentValues cv, int id){
+
+        return ad.update(DB.TABLE_USUARIOS_NAME,
+                cv , "_Id="+id,null);
+
+    }
+
+    public boolean delete2(int id){
+
+        return ad.delete(DB.TABLE_USUARIOS_NAME,
+                "_id="+id,null) >  0;
 
     }
 
